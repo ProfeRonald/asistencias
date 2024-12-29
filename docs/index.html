@@ -253,18 +253,18 @@ $('#visor-huellimetro').show();
 					$('#registro').parent().html('<div id="registro"></div>');
 					$('#audio_no_registro').get(0).pause();
 					$('#audio_registro').get(0).play(); 
-					$('#registro').parent().html('<svg style="width: 200px;height: 200px;" id="registro" class="registro" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="registro_circulo" cx="26" cy="26" r="25" fill="none" /><path class="registro_insertado" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg><div style="display:block;font-weight:bold;text-align:center;font-size:1.5rem">&iexcl;Asistencia registrada!<br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong><br /></div>');
+					$('#registro').parent().html('<svg style="width: 200px;height: 200px;" id="registro" class="registro" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="registro_circulo" cx="26" cy="26" r="25" fill="none" /><path class="registro_insertado" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg><div style="display:block;font-weight:bold;text-align:center;font-size:1.5rem" class="mb-2">&iexcl;Asistencia registrada!<br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong></div>');
 				}else if(r == 2){
 					$('#registro').parent().html('<div id="registro"></div>');
 					$('#audio_registro').get(0).pause();
 					$('#audio_no_registro').get(0).play();
 					
-					$('#registro').parent().html('<div id="registro" class="text-center" style="animation: reg .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;"><br /><img src="https://imagenes.escuelard.com/registrado.png" /><br /><strong class="text-warning display-4 d-block font-weight-bold">&iexcl;Ya se ha registrado!</strong><br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong><br /></div>');
+					$('#registro').parent().html('<div id="registro" class="text-center" style="animation: reg .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;"><br /><img src="https://imagenes.escuelard.com/registrado.png" /><br /><strong class="text-warning display-4 d-block font-weight-bold">&iexcl;Ya se ha registrado!</strong><br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong></div>');
 				}else{
 					$('#registro').parent().html('<div id="registro"></div>');
 					$('#audio_registro').get(0).pause();
 					$('#audio_no_registro').get(0).play();
-					$('#registro').parent().html('<div id="registro" style="animation: noid .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;" class="text-center"><br /><br /><img src="https://imagenes.escuelard.com/no-registrado.png" /><br /><strong class="text-danger display-4">&iexcl;No se pudo registrar!</strong><br /><br /><br /></div>');
+					$('#registro').parent().html('<div id="registro" style="animation: noid .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;" class="text-center"><br /><br /><img src="https://imagenes.escuelard.com/no-registrado.png" /><br /><strong class="text-danger display-4">&iexcl;No se pudo registrar!</strong><br /><br /></div>');
 				}
 	}
 
