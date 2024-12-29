@@ -100,7 +100,8 @@
 </style>
 </head>
 
-<body oncontextmenu="return false;">
+<!--<body oncontextmenu="return false;">-->
+	<body>
 
 	<div class="content bg-dark" id="visor-huellimetro" style="height:100vh;overflow-y:hidden;display: none;">
 
@@ -259,7 +260,7 @@ $('#visor-huellimetro').show();
 					$('#audio_registro').get(0).pause();
 					$('#audio_no_registro').get(0).play();
 					
-					$('#registro').parent().html('<div id="registro" class="text-center" style="animation: reg .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;"><br /><img src="https://imagenes.escuelard.com/registrado.png" /><br /><strong class="text-warning display-4 d-block font-weight-bold">&iexcl;Ya se ha registrado!</strong><br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong></div>');
+					$('#registro').parent().html('<div id="registro" class="text-center" style="animation: reg .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;"><br /><img src="https://imagenes.escuelard.com/registrado.png" style="width:70px" /><div class="mx-4 p-0" style="margin-top:-20px"><strong class="text-warning d-block font-weight-bold" style="font-size:3.5rem">&iexcl;Ya se ha registrado!</strong></div><div class="pb-4"><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong></div></div>');
 				}else{
 					$('#registro').parent().html('<div id="registro"></div>');
 					$('#audio_registro').get(0).pause();
@@ -361,6 +362,6 @@ $('#visor-huellimetro').show();
 	}
 
 </script>
-</body>
+</bod>
 
 </html>
