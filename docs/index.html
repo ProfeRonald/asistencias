@@ -5,17 +5,17 @@
 	<meta charset="utf-8">
 	<meta name="google" content="notranslate" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Asistencia | Proyecto escuelaRD</title>
-	<meta name="description" content="Asistencia | Proyecto escuelaRD - Herramienta de manejo y publicaci&oacute;n de calificaciones escolares seg&uacute;n el modelo de la Rep&uacute;blica Dominicana">
+	<title>Asistencias | Proyecto escuelaRD</title>
+	<meta name="description" content="Asistencias | Proyecto escuelaRD - Herramienta de manejo y publicaci&oacute;n de calificaciones escolares seg&uacute;n el modelo de la Rep&uacute;blica Dominicana">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="MobileOptimized" content="width">
 	<meta name="HandheldFriendly" content="true">
-	<meta property="og:title" content="Asistencia | Proyecto escuelaRD" />
+	<meta property="og:title" content="Asistencias | Proyecto escuelaRD" />
 	<meta property="og:type" content="article" />
 	<meta property="og:image" content="https://imagenes.escuelard.com/logo2.svg" />
 	<meta property="og:url" content="https://escuelard.com" />
 	<meta property="og:site-name" content="escuelaRD.com" />
-	<meta property="og:description" content="Asistencia | Proyecto escuelaRD - Herramienta de manejo y publicaci&oacute;n de calificaciones escolares seg&uacute;n el modelo de la Rep&uacute;blica Dominicana" />
+	<meta property="og:description" content="Asistencias | Proyecto escuelaRD - Herramienta de manejo y publicaci&oacute;n de calificaciones escolares seg&uacute;n el modelo de la Rep&uacute;blica Dominicana" />
 
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -111,7 +111,7 @@
 
                     			
 						<div class="border p-0 m-0">
-							<input style="font-size:2.2rem" class="form-control border-0 font-weight-bold w-100 bg-white" value="Sistema de asistencia por huella dactilar." type="text" id="nombre" autocomplete="off" readonly="">
+							<input style="font-size:2.2rem" class="form-control border-0 font-weight-bold w-100 bg-white" value="Sistema de asistencias por huella dactilar." type="text" id="nombre" autocomplete="off" readonly="">
                     		<input style="font-size:1.1rem" class="p-0 m-0 pr-2 border-0 font-weight-bold w-100 bg-white text-right" value="Proyecto escuelaRD" type="text" id="curso" autocomplete="off" readonly="">
 					</div>
 
@@ -205,7 +205,7 @@ $('#visor-huellimetro').show();
 		onValue(ref(database, 'no_registro/' + eh[0] + '/' + eh[2]), (nosnapshot) => {
 					if(nosnapshot.val() != null){
 						if(nosnapshot.val() == 0){
-							MostrarDatos('Sistema de asistencia por huella dactilar.', 'Proyecto escuelaRD', 'https://imagenes.escuelard.com/logo2.svg', 0);
+							MostrarDatos('Sistema de asistencias por huella dactilar.', 'Proyecto escuelaRD', 'https://imagenes.escuelard.com/logo2.svg', 0);
 						}else{
 						const idtime = nosnapshot.val().split('-');
 						onValue(ref(database, eh[0] + '/usuarios/' + idtime[0]), (snapshot) => {
@@ -337,7 +337,7 @@ $('#visor-huellimetro').show();
 	}
 
 	var f = new Date();
-	var a = f.getFullYear();  
+	var a = f.getFullYear();
 	document.getElementById("copy").innerHTML = '&copy; ' + a + ' Proyecto escuelaRD';
 
 	$(document).on('click', 'body', function () {
