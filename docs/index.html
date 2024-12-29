@@ -137,7 +137,7 @@
 						
 						<div class="m-0 mt-1 p-0 rounded border border-danger">
                                 
-							<div style="width: 233px;height: 233px;" id="registro"></div>
+							<div style="width: 200px;height: 200px;" id="registro"></div>
 
 				</div>
 				<audio id="audio_no_registro" controls style="display:none"><source type="audio/mp3" src="https://cdn.escuelard.com/assets/sound/no-asistencias.mp3"></audio>
@@ -156,13 +156,9 @@
 										
                                 </div>
 
-
 					</div>
 
 				</div>
-
-
-
 
 				</div>
 				<div class="my-4 row"><div class="col-5 text-center"><a href="#a" onclick="javascript:location.reload();"><img title="Click para recargar" alt="Recargar" src="https://imagenes.escuelard.com/recargar.png"></a></div><div class="col-6 text-right m-0 p-0"><a id="copy" href="https://escuelard.edu.do">&copy; 2024 Proyecto escuelaRD</a></div></div>
@@ -257,7 +253,7 @@ $('#visor-huellimetro').show();
 					$('#registro').parent().html('<div id="registro"></div>');
 					$('#audio_no_registro').get(0).pause();
 					$('#audio_registro').get(0).play(); 
-					$('#registro').parent().html('<svg style="width: 233px;height: 233px;" id="registro" class="registro" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="registro_circulo" cx="26" cy="26" r="25" fill="none" /><path class="registro_insertado" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg><div style="display:block;font-weight:bold;text-align:center;font-size:1.5rem">&iexcl;Asistencia registrada!<br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong><br /></div>');
+					$('#registro').parent().html('<svg style="width: 200px;height: 200px;" id="registro" class="registro" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="registro_circulo" cx="26" cy="26" r="25" fill="none" /><path class="registro_insertado" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg><div style="display:block;font-weight:bold;text-align:center;font-size:1.5rem">&iexcl;Asistencia registrada!<br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong><br /></div>');
 				}else if(r == 2){
 					$('#registro').parent().html('<div id="registro"></div>');
 					$('#audio_registro').get(0).pause();
@@ -282,94 +278,84 @@ $('#visor-huellimetro').show();
 					minutes = minutes < 10 ? '0' + minutes : minutes;
 		return hours + ':' + minutes + ' ' + ampm;
 	}
-
-  Reloj();
-  setInterval(Reloj, 1000);
 	
+	Reloj();
+	setInterval(Reloj, 1000);
 
-function Reloj() {
-	var f = new Date();  
-  function ConCero(x) {
-    if (x < 10) {
-      return x = '0' + x;
-    } else {
-      return x;
-    }
-  }
+	function Reloj() {
+		var f = new Date();  
+		function ConCero(x) {
+			if (x < 10) {
+				return x = '0' + x;
+			} else {
+				return x;
+			}
+		}
 
-  function Formato12(x) {
-    if (x > 12) {
-      return x = x - 12;
-    } else if (x == 0) {
-      return x = 12;
-    } else {
-      return x;
-    }
-  }
-  
-  function Meridiano() {
-	  var m = 'a.m.';
-	  var x = f.getHours();
-	  if(x == 12 && f.getMinutes() == 0){
-			return m = 'm.';
-	  } else if (x == 12 || x > 12) {
-	      return m = 'p.m.';
-	  } else {
-	      return m;
-	  }
-  }
+		function Formato12(x) {
+			if (x > 12) {
+				return x = x - 12;
+			} else if (x == 0) {
+				return x = 12;
+			} else {
+				return x;
+			}
+		}
 
-  var h = ConCero(Formato12(f.getHours()));
-  var m = ConCero(f.getMinutes());
-  var s = ConCero(f.getSeconds());
-  var me = Meridiano();
+		function Meridiano() {
+			var m = 'a.m.';
+			var x = f.getHours();
+			if (x == 12 && f.getMinutes() == 0) {
+				return m = 'm.';
+			} else if (x == 12 || x > 12) {
+				return m = 'p.m.';
+			} else {
+				return m;
+			}
+		}
 
-  $('#reloj-digital').text(h + ':' + m + ':' + s + ' ' + me)
+		var h = ConCero(Formato12(f.getHours()));
+		var m = ConCero(f.getMinutes());
+		var s = ConCero(f.getSeconds());
+		var me = Meridiano();
 
-}
+		$('#reloj-digital').text(h + ':' + m + ':' + s + ' ' + me);
+	}
 	} else {
 		$('#visor-huellimetro').hide();
 		setPersistence(auth, browserLocalPersistence).then(function () {
-		return signInWithPopup(auth, provider).then(() => {
-		})
-			.catch(err => {
-				$('#visor-huellimetro').hide();
-			});
-	});
+			return signInWithPopup(auth, provider).then(() => {
+			})
+				.catch(err => {
+					$('#visor-huellimetro').hide();
+				});
+		});
 	}
-});
-} catch (error) {
-	$('#visor-huellimetro').hide();
-}
-	
-var f = new Date();
-var a = f.getFullYear();  
-document.getElementById("copy").innerHTML = '&copy; ' + a + ' Proyecto escuelaRD';
+	});
+	} catch (error) {
+		$('#visor-huellimetro').hide();
+	}
 
-$(document).on('click', 'body', function () {
-	var requestMethod = document.body.requestFullScreen || document.body.webkitRequestFullScreen || document.body.mozRequestFullScreen || document.body.msRequestFullScreen;
-		if(requestMethod){
+	var f = new Date();
+	var a = f.getFullYear();  
+	document.getElementById("copy").innerHTML = '&copy; ' + a + ' Proyecto escuelaRD';
+
+	$(document).on('click', 'body', function () {
+		var requestMethod = document.body.requestFullScreen || document.body.webkitRequestFullScreen || document.body.mozRequestFullScreen || document.body.msRequestFullScreen;
+		if (requestMethod) {
 			requestMethod.call(document.body);
-		}else if (typeof window.ActiveXObject !== "undefined"){
+		} else if (typeof window.ActiveXObject !== "undefined") {
 			var wscript = new ActiveXObject("WScript.Shell");
-			if(wscript !== null){
+			if (wscript !== null) {
 				wscript.SendKeys("{F11}");
 			}
-    }
-});
+		}
+	});
 
+	});
 
-
-});
-	
-
-
-		if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./pwa.js');
-     // .then(reg => console.log('Registro de SW exitoso', reg))
-   //   .catch(err => console.warn('Error al tratar de registrar el SW', err))
-}
-	</script>
-</body>
-
-</html>
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('./pwa.js');
+		// .then(reg => console.log('Registro de SW exitoso', reg))
+		// .catch(err => console.warn('Error al tratar de registrar el SW', err))
+	}
