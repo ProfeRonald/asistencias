@@ -234,8 +234,9 @@ $('#visor-huellimetro').show();
 
 
 	function MostrarDatos(nombre, curso, foto, r=0, hora=''){
-				//$('#nombre').val(nombre);
-				$('#nombre').each(function() {
+				$('#nombre').val(nombre);
+				setTimeout(() => {
+					$('#nombre').each(function() {
 					var $this = $(this);
 					var text = $this.val();
 					$this.val('');
@@ -248,7 +249,7 @@ $('#visor-huellimetro').show();
 						}
 					}, 14);
 				});
-				
+				}, 200);
 				$('#curso').val(curso);
 				$('#foto').attr('src', foto);
 				
