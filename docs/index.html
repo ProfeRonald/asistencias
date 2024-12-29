@@ -141,6 +141,7 @@
 
 				</div>
 				<audio class="d-none" style="display:none" id="audio_registro" controls><source type="audio/mp3" src="https://cdn.escuelard.com/assets/sound/asistencias.mp3"></audio>
+				<audio class="d-none" style="display:none" id="audio_no_registro" controls><source type="audio/mp3" src="https://cdn.escuelard.com/assets/sound/no-asistencias.mp3"></audio>
 					</div>
 					<div class="border col-md-2">
 						<div class="border rounded border-success text-center">
@@ -202,12 +203,38 @@ const database = getDatabase(app);
 			if (userInfo) {
 
 $('#visor-huellimetro').show();
-        onValue(ref(database, btoa(userInfo.email)), (snapshot) => {
+
+        onValue(ref(database, 'profesores/' + btoa(userInfo.email)), (snapshot) => {
 		const eh = snapshot.val().split('-');
+		onValue(ref(database, 'no_registro/' + eh[0] + '/' + eh[2]), (nosnapshot) => {
+					if(nosnapshot.val() != null){
+						if(nosnapshot.val() == 0){
+							MostrarDatos('Sistema de asistencia por huella dactilar.', 'Proyecto escuelaRD', 'https://imagenes.escuelard.com/logo2.svg', 0);
+						}else{
+						const idtime = nosnapshot.val().split('-');
+						onValue(ref(database, eh[0] + '/usuarios/' + idtime[0]), (snapshot) => {
+				
+			MostrarDatos(snapshot.val().datos, snapshot.val().curso, snapshot.val().foto, 2, idtime[1]);
+				
+    		}, { onlyOnce: true });
+					}
+				}
+		});
 		onValue(ref(database, eh[0] + '/huellimetros/' +  eh[2]), (snapshot) => {
-		onValue(query(ref(database, eh[0] + '/asistencias/' + eh[3] + '-' +  eh[4] + '/' + snapshot.val() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate()), orderByValue(), limitToLast(1)), (snapshot) => {
-			onValue(ref(database, eh[0] + '/usuarios/' + Object.keys(snapshot.val())[0]), (snapshot) => {
-				$('#nombre').val(snapshot.val().datos);
+		onValue(query(ref(database, eh[0] + '/asistencias/' + eh[3] + '-' +  eh[4] + '/' + snapshot.val() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate()), orderByValue(), limitToLast(1)), (idsnapshot) => {
+	
+			onValue(ref(database, eh[0] + '/usuarios/' + Object.keys(idsnapshot.val())[0]), (snapshot) => {
+			
+			MostrarDatos(snapshot.val().datos, snapshot.val().curso, snapshot.val().foto, 1, Object.values(idsnapshot.val())[0]);
+				
+    		}, { onlyOnce: true });
+	});
+    }, { onlyOnce: true });
+    }, { onlyOnce: true });
+
+
+	function MostrarDatos(nombre, curso, foto, r=0, hora=''){
+				$('#nombre').val(nombre);
 				$('#nombre').each(function() {
 					var $this = $(this);
 					var text = $this.val();
@@ -221,16 +248,35 @@ $('#visor-huellimetro').show();
 						}
 					}, 14);
 				});
-				$('#curso').val(snapshot.val().curso);
-				$('#foto').attr('src', snapshot.val().foto);
-				$('#registro').parent().html('<div id="registro"></div>');
-				$('#audio_registro').get(0).play();
-				$('#registro').parent().html('<svg style="width: 233px;height: 233px;" id="registro" class="registro" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="registro_circulo" cx="26" cy="26" r="25" fill="none" /><path class="registro_insertado" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg><div style="display:block;font-weight:bold;text-align:center;font-size:1.5rem">&iexcl;Asistencia registrada!</div><br />');
+				$('#curso').val(curso);
+				$('#foto').attr('src', foto);
 				
-    		}, { onlyOnce: true });
-	});
-    }, { onlyOnce: true });
-    }, { onlyOnce: true });
+				if(r == 1){
+					$('#registro').parent().html('<div id="registro"></div>');
+					$('#audio_registro').get(0).play();
+					$('#registro').parent().html('<svg style="width: 233px;height: 233px;" id="registro" class="registro" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="registro_circulo" cx="26" cy="26" r="25" fill="none" /><path class="registro_insertado" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg><div style="display:block;font-weight:bold;text-align:center;font-size:1.5rem">&iexcl;Asistencia registrada!<br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong><br /></div>');
+				}else if(r == 2){
+					$('#registro').parent().html('<div id="registro"></div>');
+					$('#audio_no_registro').get(0).play();
+					
+					$('#registro').parent().html('<div id="registro" class="text-center" style="animation: reg .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;"><br /><img src="https://imagenes.escuelard.com/registrado.png" /><br /><strong class="text-warning display-4 d-block font-weight-bold">&iexcl;Ya se ha registrado!</strong><br /><strong style="display:block;font-size:1.5rem">' + TimeStamptoHour(hora) + '</strong><br /></div>');
+				}else{
+					$('#registro').parent().html('<div id="registro"></div>');
+					$('#audio_no_registro').get(0).play();
+					$('#registro').parent().html('<div id="registro" style="animation: noid .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;" class="text-center"><br /><br /><img src="https://imagenes.escuelard.com/no-registrado.png" /><br /><strong class="text-danger display-4">&iexcl;No se pudo registrar!</strong><br /><br /><br /></div>');
+				}
+	}
+
+	function TimeStamptoHour(hora){
+					var date = new Date(hora * 1000);
+					var hours = date.getHours();
+					var minutes = date.getMinutes();
+					var ampm = hours >= 12 ? 'p.m.' : 'a.m.';
+					hours = hours % 12;
+					hours = hours ? hours : 12;
+					minutes = minutes < 10 ? '0' + minutes : minutes;
+		return hours + ':' + minutes + ' ' + ampm;
+	}
 
   Reloj();
   setInterval(Reloj, 1000);
@@ -257,12 +303,12 @@ function Reloj() {
   }
   
   function Meridiano() {
-	  var m = 'A.M.';
+	  var m = 'a.m.';
 	  var x = f.getHours();
 	  if(x == 12 && f.getMinutes() == 0){
-			return m = 'M.';
+			return m = 'm.';
 	  } else if (x == 12 || x > 12) {
-	      return m = 'P.M.';
+	      return m = 'p.m.';
 	  } else {
 	      return m;
 	  }
