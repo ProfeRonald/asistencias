@@ -234,7 +234,7 @@ $('#visor-huellimetro').show();
 
 
 	function MostrarDatos(nombre, curso, foto, r=0, hora=''){
-				$('#nombre').val(nombre);
+				//$('#nombre').val(nombre);
 				$('#nombre').each(function() {
 					var $this = $(this);
 					var text = $this.val();
@@ -266,8 +266,6 @@ $('#visor-huellimetro').show();
 					$('#audio_no_registro').get(0).play();
 					$('#registro').parent().html('<div id="registro" style="animation: noid .2s ease-in-out .2s forwards, scale .2s ease-in-out .5s both;" class="text-center"><br /><br /><img src="https://imagenes.escuelard.com/no-registrado.png" /><br /><strong class="text-danger display-4">&iexcl;No se pudo registrar!</strong><br /><br /><br /></div>');
 				}
-				$('#nombre').val('');
-				$('#nombre').val(nombre);
 	}
 
 	function TimeStamptoHour(hora){
