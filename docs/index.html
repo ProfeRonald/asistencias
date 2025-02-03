@@ -97,12 +97,35 @@
 		box-shadow:inset 0px 0px 0px 20px #f14753;
 	}
 }
+.beautiful-button {
+		background-color: #ff9933;
+		border: none;
+		border-radius: 25px;
+		color: white;
+		padding: 15px 30px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		box-shadow: 0 5px 15px rgba(255, 153, 51, 0.4);
+		transition: all 0.3s ease;
+		position: relative;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.beautiful-button:hover {
+		background-color: #ff8000;
+		box-shadow: 0 7px 20px rgba(255, 153, 51, 0.6);
+	}
 </style>
 </head>
 
-<!--<body oncontextmenu="return false;">-->
-	<body>
-
+<body oncontextmenu="return false;">
+	<div style="background-color: #f5c18e;width:100%;height: 100vh;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);"><button class="beautiful-button" id="visor-huellimetro-buttom" style="font-size:4rem;display: none;">Abrir</button></div>
 	<div class="content bg-dark" id="visor-huellimetro" style="height:100vh;overflow-y:hidden;display: none;">
 
 		<div class="animated fadeIn d-flex justify-content-center align-items-center" style="height: 100%;">
@@ -199,7 +222,12 @@ const database = getDatabase(app);
 		onAuthStateChanged(auth, userInfo => {
 			if (userInfo) {
 
+$('#visor-huellimetro-buttom').show();
+
+$(document).on('click', '#visor-huellimetro-buttom', function () {
+$(this).parent().hide();
 $('#visor-huellimetro').show();
+
 
         onValue(ref(database, 'profesores/' + btoa(userInfo.email)), (snapshot) => {
 		const eh = snapshot.val().split('-');
@@ -229,6 +257,7 @@ $('#visor-huellimetro').show();
     }, { onlyOnce: true });
     }, { onlyOnce: true });
 
+})
 
 	function MostrarDatos(nombre, curso, foto, r=0, hora=''){
 				$('#nombre').val(nombre);
@@ -244,12 +273,11 @@ $('#visor-huellimetro').show();
 						if (i > text.length) {
 							clearInterval(typingEffect);
 						}
-					}, 14);
+					}, 19);
 				});
-				}, 20);
+				}, 25);
 				$('#curso').val(curso);
 				$('#foto').attr('src', foto);
-				
 				if(r == 1){
 					$('#registro').parent().html('<div id="registro"></div>');
 					$('#audio_no_registro').get(0).pause();
